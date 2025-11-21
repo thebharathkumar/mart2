@@ -25,11 +25,24 @@ function App() {
     field: keyof CourseEntry,
     value: string
   ) => {
-    setFormData((prev) => {
-      const courses = [...prev[type]];
-      courses[index] = { ...courses[index], [field]: value };
-      return { ...prev, [type]: courses };
-    });
+    const newFormData = { ...formData };
+    const courses = [...newFormData[type]];
+    courses[index] = { ...courses[index], [field]: value };
+    newFormData[type] = courses;
+    setFormData(newFormData);
+    if (submitted) {
+      setErrors(validateForm(newFormData));
+    }
+  };
+
+  const exportJSON = () => {
+    const blob = new Blob([JSON.stringify(formData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'course_selection_data.json';
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleSubmit = () => {
@@ -187,6 +200,15 @@ function App() {
                 Upload JSON
                 <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
               </label>
+              <button
+                onClick={exportJSON}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 border border-gray-200"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Export JSON
+              </button>
             </div>
 
             {/* Personal Information */}
