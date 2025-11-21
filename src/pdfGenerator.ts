@@ -8,24 +8,27 @@ export const generatePDF = (data: FormData): void => {
   const leftMargin = 15;
   const rightMargin = pageWidth - 15;
 
-  // Header
+  // Header - Left side
   pdf.setFontSize(11);
   pdf.setFont('helvetica', 'bold');
   pdf.text('PACE', leftMargin, y);
   pdf.setFontSize(9);
   pdf.text('UNIVERSITY', leftMargin, y + 4);
 
-  pdf.setFontSize(12);
-  pdf.setFont('helvetica', 'bold');
-  pdf.text('EXCHANGE STUDENT COURSE SELECTION SHEET', pageWidth / 2, y, { align: 'center' });
-
+  // Header - Right side (address)
   pdf.setFontSize(9);
   pdf.setFont('helvetica', 'normal');
   pdf.text('International Students and Scholars', rightMargin, y, { align: 'right' });
   pdf.text('161 William Street, 16th Floor', rightMargin, y + 4, { align: 'right' });
   pdf.text('New York, NY 10038', rightMargin, y + 8, { align: 'right' });
 
-  y += 20;
+  // Title on separate line below
+  y += 14;
+  pdf.setFontSize(12);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text('EXCHANGE STUDENT COURSE SELECTION SHEET', pageWidth / 2, y, { align: 'center' });
+
+  y += 12;
 
   // Personal Information Section
   pdf.setFontSize(11);
