@@ -36,43 +36,44 @@ export const generatePDF = (data: FormData): void => {
   pdf.setFontSize(9);
   pdf.setFont('helvetica', 'normal');
 
-  // Row helper for label: value format
-  const addRow = (label: string, value: string, x: number, currentY: number): void => {
+  // Row helper for label: value format with fixed width labels
+  const addField = (label: string, value: string, x: number, currentY: number, labelWidth: number = 45): void => {
     pdf.setFont('helvetica', 'normal');
     pdf.text(`${label}:`, x, currentY);
     pdf.setFont('helvetica', 'bold');
-    pdf.text(value || '-', x + pdf.getTextWidth(`${label}: `) + 2, currentY);
+    pdf.text(value || '-', x + labelWidth, currentY);
   };
 
   // Personal info rows
-  addRow('Name (as in your passport)', `${data.firstName} ${data.lastName}`, leftMargin, y);
-  y += 6;
+  addField('Name (as in your passport)', `${data.firstName} ${data.lastName}`, leftMargin, y, 50);
+  y += 7;
 
-  addRow('Pace U ID#', data.paceUId, leftMargin, y);
-  addRow('Home Institution', data.homeInstitution, leftMargin + 60, y);
-  y += 6;
+  addField('Pace U ID#', data.paceUId, leftMargin, y, 25);
+  addField('Home Institution', data.homeInstitution, pageWidth / 2, y, 35);
+  y += 7;
 
-  addRow('Email', data.email, leftMargin, y);
-  addRow('Alternate Email', data.alternateEmail, leftMargin + 60, y);
-  y += 6;
+  addField('Email', data.email, leftMargin, y, 15);
+  addField('Alternate Email', data.alternateEmail, pageWidth / 2, y, 35);
+  y += 7;
 
-  addRow('Current education level', data.educationLevel, leftMargin, y);
-  y += 6;
-
-  pdf.setFont('helvetica', 'normal');
-  pdf.text('How many U.S. credits are you required to take by your home institution while at Pace?:', leftMargin, y);
-  pdf.setFont('helvetica', 'bold');
-  pdf.text(data.usCredits, leftMargin + 115, y);
-  y += 6;
-
-  addRow('Special Requirements for Course Selection', data.specialRequirements, leftMargin, y);
-  y += 6;
+  addField('Current education level', data.educationLevel, leftMargin, y, 45);
+  y += 7;
 
   pdf.setFont('helvetica', 'normal');
-  pdf.text('Does Your Home School Allow Course Selection Outside Level of Education?:', leftMargin, y);
+  pdf.text('How many U.S. credits are you required to take while at Pace?', leftMargin, y);
   pdf.setFont('helvetica', 'bold');
-  pdf.text(data.allowOutsideLevel || '-', leftMargin + 100, y);
-  y += 12;
+  pdf.text(data.usCredits || '-', leftMargin + 95, y);
+  y += 7;
+
+  addField('Special Requirements', data.specialRequirements || 'None', leftMargin, y, 40);
+  y += 7;
+
+  pdf.setFont('helvetica', 'normal');
+  pdf.text('Does Your Home School Allow Course Selection Outside Level of Education?', leftMargin, y);
+  y += 5;
+  pdf.setFont('helvetica', 'bold');
+  pdf.text(data.allowOutsideLevel || '-', leftMargin, y);
+  y += 10;
 
   // Course Selection Section
   pdf.setFontSize(11);
