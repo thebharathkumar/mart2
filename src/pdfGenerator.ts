@@ -104,7 +104,33 @@ export const generatePDF = (data: FormData): void => {
     ? 'Semester: [X] Fall  [ ] Spring'
     : 'Semester: [ ] Fall  [X] Spring';
   pdf.text(semesterText, leftMargin, y);
-  y += 10;
+  y += 8;
+
+  // Course Selection introductory paragraph
+  pdf.setFontSize(8);
+  pdf.setFont('helvetica', 'normal');
+  const introText1 = 'Your Pace academic advisor will receive your course selection and register you in courses¹. At a later date, you will be instructed on';
+  const introText2 = 'how to view your course registration and how to contact your academic advisor should you have any questions about your schedule.';
+  pdf.text(introText1, leftMargin, y);
+  y += 4;
+  pdf.text(introText2, leftMargin, y);
+  y += 5;
+  pdf.text('• Fall courses are posted online in mid to late April.', leftMargin + 2, y);
+  y += 4;
+  pdf.text('• Spring courses are posted online in mid to late November.', leftMargin + 2, y);
+  y += 5;
+  const introText3 = 'Using the course offerings posted for the same semester in the prior year on the "Pace Schedule Explorer", list your course preferences';
+  const introText4 = 'and alternative courses below for the semester in which you plan to attend. When using Schedule Explorer to search courses, you must';
+  const introText5 = 'be sure to select the appropriate "Campus" (i.e., Pleasantville or New York City) and the appropriate "Level" (i.e., undergraduate or';
+  const introText6 = 'graduate).';
+  pdf.text(introText3, leftMargin, y);
+  y += 4;
+  pdf.text(introText4, leftMargin, y);
+  y += 4;
+  pdf.text(introText5, leftMargin, y);
+  y += 4;
+  pdf.text(introText6, leftMargin, y);
+  y += 8;
 
   // Table drawing function
   const drawTable = (title: string, courses: typeof data.preferredCourses, startY: number): number => {
