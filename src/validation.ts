@@ -25,7 +25,8 @@ export const validateCredits = (credits: string): string | null => {
 
 export const validateCourseCode = (code: string): string | null => {
   if (!code) return 'Course code is required';
-  const normalized = code.toUpperCase().trim();
+  // Normalize: uppercase, trim, and collapse multiple spaces to single space
+  const normalized = code.toUpperCase().trim().replace(/\s+/g, ' ');
   const pattern = /^[A-Z]{3}\s\d{3}$/;
   if (!pattern.test(normalized)) return 'Course code must be 3 letters, space, 3 digits (e.g., ECO 240)';
   return null;
