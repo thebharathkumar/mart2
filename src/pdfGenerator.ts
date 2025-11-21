@@ -111,61 +111,61 @@ export const generatePDF = (data: FormData): void => {
     const colWidths = [25, 95, 35, 25];
     const tableWidth = colWidths.reduce((a, b) => a + b, 0);
     const headers = ['CRN', 'SUBJECT', 'COURSE CODE', 'CREDITS'];
+    const rowHeight = 6;
     let currentY = startY;
 
     // Title
     pdf.setFontSize(9);
     pdf.setFont('helvetica', 'bold');
     pdf.text(title, leftMargin, currentY);
-    currentY += 5;
+    currentY += 6;
 
-    // Header row
+    const tableStartY = currentY;
+
+    // Header row background
     pdf.setFillColor(240, 240, 240);
-    pdf.rect(leftMargin, currentY - 3.5, tableWidth, 5, 'F');
-    pdf.setDrawColor(0, 0, 0);
+    pdf.rect(leftMargin, tableStartY, tableWidth, rowHeight, 'F');
 
     // Header text
     pdf.setFontSize(8);
     pdf.setFont('helvetica', 'bold');
     let x = leftMargin;
     headers.forEach((header, i) => {
-      pdf.text(header, x + 1, currentY);
+      pdf.text(header, x + 2, tableStartY + 4);
       x += colWidths[i];
     });
-    currentY += 4;
 
-    // Draw header bottom line
-    pdf.line(leftMargin, currentY - 2, leftMargin + tableWidth, currentY - 2);
+    currentY = tableStartY + rowHeight;
 
     // Data rows
     pdf.setFont('helvetica', 'normal');
     courses.forEach((course) => {
       x = leftMargin;
-      pdf.text(course.crn || '-', x + 1, currentY);
+      pdf.text(course.crn || '-', x + 2, currentY + 4);
       x += colWidths[0];
-      pdf.text((course.subject || '-').substring(0, 50), x + 1, currentY);
+      pdf.text((course.subject || '-').substring(0, 50), x + 2, currentY + 4);
       x += colWidths[1];
-      pdf.text((course.courseCode || '-').toUpperCase(), x + 1, currentY);
+      pdf.text((course.courseCode || '-').toUpperCase(), x + 2, currentY + 4);
       x += colWidths[2];
-      pdf.text(course.credits || '-', x + 1, currentY);
-      currentY += 5;
+      pdf.text(course.credits || '-', x + 2, currentY + 4);
+      currentY += rowHeight;
     });
 
-    // Table border
-    pdf.rect(leftMargin, startY + 1.5, tableWidth, currentY - startY - 1.5, 'S');
+    // Draw table border
+    pdf.setDrawColor(0, 0, 0);
+    pdf.rect(leftMargin, tableStartY, tableWidth, currentY - tableStartY, 'S');
 
-    // Column lines
+    // Draw column lines
     x = leftMargin;
     for (let i = 0; i < colWidths.length - 1; i++) {
       x += colWidths[i];
-      pdf.line(x, startY + 1.5, x, currentY);
+      pdf.line(x, tableStartY, x, currentY);
     }
 
-    // Row lines
-    let rowY = startY + 6.5;
-    for (let i = 0; i <= courses.length; i++) {
+    // Draw row lines (including header separator)
+    for (let i = 1; i <= courses.length; i++) {
+      const rowY = tableStartY + (i * rowHeight);
       pdf.line(leftMargin, rowY, leftMargin + tableWidth, rowY);
-      rowY += 5;
     }
 
     return currentY + 5;
