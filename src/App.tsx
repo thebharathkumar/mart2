@@ -90,18 +90,23 @@ function App() {
   const isValid = errorList.length === 0;
 
   const inputClass = (field: string) =>
-    `w-full p-2 border rounded ${errors[field] ? 'border-red-500 bg-red-50' : 'border-gray-300'}`;
+    `w-full px-4 py-2.5 border-2 rounded-lg bg-white ${
+      errors[field] ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+    }`;
 
   const ErrorMsg = ({ field }: { field: string }) =>
     errors[field] ? (
-      <p className="text-red-600 text-sm mt-1">
+      <p className="text-red-500 text-sm mt-1.5 flex items-center gap-1">
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+        </svg>
         {errors[field]}
         {field === 'paceUId' && (
           <a
             href="https://helpdesk.pace.edu/TDClient/213/Portal/KB/ArticleDet?ID=3933"
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 text-blue-600 underline"
+            className="ml-1 text-blue-600 underline hover:text-blue-800"
           >
             Get help
           </a>
@@ -110,459 +115,439 @@ function App() {
     ) : null;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
-        {/* Header */}
-        <div className="bg-blue-900 text-white p-4 rounded-t-lg">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-2xl font-bold">PACE</h1>
-              <p className="text-sm">UNIVERSITY</p>
+    <div className="min-h-screen py-8 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Card */}
+        <div className="bg-[#002855] text-white rounded-t-xl shadow-lg overflow-hidden">
+          <div className="p-6">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
+                  <span className="text-3xl font-bold tracking-tight">P</span>
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold tracking-wide">PACE</h1>
+                  <p className="text-sm text-white/70 tracking-widest uppercase">University</p>
+                </div>
+              </div>
+              <div className="text-right text-sm text-white/80 hidden sm:block">
+                <p className="font-medium text-white">International Students and Scholars</p>
+                <p>161 William Street, 16th Floor</p>
+                <p>New York, NY 10038</p>
+              </div>
             </div>
-            <div className="text-center flex-1">
-              <h2 className="text-lg font-bold">EXCHANGE STUDENT COURSE SELECTION SHEET</h2>
-            </div>
-            <div className="text-right text-sm">
-              <p>International Students and Scholars</p>
-              <p>161 William Street, 16th Floor</p>
-              <p>New York, NY 10038</p>
-            </div>
+          </div>
+          <div className="bg-[#b5985a] px-6 py-3">
+            <h2 className="text-lg font-semibold text-center tracking-wide">
+              Exchange Student Course Selection Sheet
+            </h2>
           </div>
         </div>
 
-        <div className="p-6">
-          {/* Error Summary */}
-          {submitted && errorList.length > 0 && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-300 rounded">
-              <h3 className="font-bold text-red-800 mb-2">Please fix the following errors:</h3>
-              <ul className="list-disc list-inside text-red-700 text-sm">
-                {errorList.slice(0, 10).map(([key, msg]) => (
-                  <li key={key}>{msg}</li>
-                ))}
-                {errorList.length > 10 && <li>...and {errorList.length - 10} more errors</li>}
-              </ul>
-            </div>
-          )}
-
-          {/* Action Buttons */}
-          <div className="mb-6 flex gap-4">
-            <button onClick={loadExample} className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
-              Load Example Data
-            </button>
-            <label className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer">
-              Upload JSON
-              <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
-            </label>
-          </div>
-
-          {/* Personal Information */}
-          <section className="mb-8">
-            <h3 className="text-lg font-bold border-b-2 border-blue-900 pb-2 mb-4">Personal Information</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div data-field="firstName">
-                <label className="block text-sm font-medium mb-1">First Name (as in passport)</label>
-                <input
-                  type="text"
-                  value={formData.firstName}
-                  onChange={(e) => updateField('firstName', e.target.value)}
-                  className={inputClass('firstName')}
-                />
-                <ErrorMsg field="firstName" />
-              </div>
-              <div data-field="lastName">
-                <label className="block text-sm font-medium mb-1">Last Name</label>
-                <input
-                  type="text"
-                  value={formData.lastName}
-                  onChange={(e) => updateField('lastName', e.target.value)}
-                  className={inputClass('lastName')}
-                />
-                <ErrorMsg field="lastName" />
-              </div>
-              <div data-field="paceUId">
-                <label className="block text-sm font-medium mb-1">Pace U ID#</label>
-                <input
-                  type="text"
-                  value={formData.paceUId}
-                  onChange={(e) => updateField('paceUId', e.target.value.toUpperCase())}
-                  placeholder="U0XXXXXX"
-                  className={inputClass('paceUId')}
-                />
-                <ErrorMsg field="paceUId" />
-              </div>
-              <div data-field="homeInstitution">
-                <label className="block text-sm font-medium mb-1">Home Institution</label>
-                <input
-                  type="text"
-                  value={formData.homeInstitution}
-                  onChange={(e) => updateField('homeInstitution', e.target.value)}
-                  className={inputClass('homeInstitution')}
-                />
-                <ErrorMsg field="homeInstitution" />
-              </div>
-              <div data-field="email">
-                <label className="block text-sm font-medium mb-1">Email</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => updateField('email', e.target.value)}
-                  className={inputClass('email')}
-                />
-                <ErrorMsg field="email" />
-              </div>
-              <div data-field="alternateEmail">
-                <label className="block text-sm font-medium mb-1">Alternate Email</label>
-                <input
-                  type="email"
-                  value={formData.alternateEmail}
-                  onChange={(e) => updateField('alternateEmail', e.target.value)}
-                  className={inputClass('alternateEmail')}
-                />
-                <ErrorMsg field="alternateEmail" />
-              </div>
-              <div data-field="educationLevel">
-                <label className="block text-sm font-medium mb-1">Current Education Level</label>
-                <input
-                  type="text"
-                  value={formData.educationLevel}
-                  onChange={(e) => updateField('educationLevel', e.target.value)}
-                  className={inputClass('educationLevel')}
-                />
-                <ErrorMsg field="educationLevel" />
-              </div>
-              <div data-field="usCredits">
-                <label className="block text-sm font-medium mb-1">U.S. Credits Required (12-18)</label>
-                <input
-                  type="number"
-                  min="12"
-                  max="18"
-                  value={formData.usCredits}
-                  onChange={(e) => updateField('usCredits', e.target.value)}
-                  className={inputClass('usCredits')}
-                />
-                <ErrorMsg field="usCredits" />
-              </div>
-              <div className="col-span-2" data-field="specialRequirements">
-                <label className="block text-sm font-medium mb-1">Special Requirements for Course Selection</label>
-                <input
-                  type="text"
-                  value={formData.specialRequirements}
-                  onChange={(e) => updateField('specialRequirements', e.target.value)}
-                  className={inputClass('specialRequirements')}
-                />
-                <ErrorMsg field="specialRequirements" />
-              </div>
-              <div className="col-span-2" data-field="allowOutsideLevel">
-                <label className="block text-sm font-medium mb-1">
-                  Does Your Home School Allow Course Selection Outside Level of Education?
-                </label>
-                <select
-                  value={formData.allowOutsideLevel}
-                  onChange={(e) => updateField('allowOutsideLevel', e.target.value)}
-                  className={inputClass('allowOutsideLevel')}
-                >
-                  <option value="">Select...</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                </select>
-                <ErrorMsg field="allowOutsideLevel" />
-              </div>
-            </div>
-          </section>
-
-          {/* Course Selection */}
-          <section className="mb-8">
-            <h3 className="text-lg font-bold border-b-2 border-blue-900 pb-2 mb-4">Course Selection</h3>
-
-            <div className="grid grid-cols-3 gap-6 mb-6">
-              <div data-field="level">
-                <label className="block text-sm font-medium mb-2">Choose Level:</label>
-                <div className="space-y-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="level"
-                      checked={formData.level === 'undergraduate'}
-                      onChange={() => updateField('level', 'undergraduate')}
-                      className="mr-2"
-                    />
-                    Undergraduate
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="level"
-                      checked={formData.level === 'graduate'}
-                      onChange={() => updateField('level', 'graduate')}
-                      className="mr-2"
-                    />
-                    Graduate
-                  </label>
+        {/* Main Form Card */}
+        <div className="bg-white shadow-lg rounded-b-xl">
+          <div className="p-6 sm:p-8">
+            {/* Error Summary */}
+            {submitted && errorList.length > 0 && (
+              <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-xl animate-fade-in">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-red-800 mb-2">Please fix the following errors:</h3>
+                    <ul className="list-disc list-inside text-red-700 text-sm space-y-1">
+                      {errorList.slice(0, 10).map(([key, msg]) => (
+                        <li key={key}>{msg}</li>
+                      ))}
+                      {errorList.length > 10 && <li className="font-medium">...and {errorList.length - 10} more errors</li>}
+                    </ul>
+                  </div>
                 </div>
-                <ErrorMsg field="level" />
               </div>
+            )}
 
-              <div data-field="campus">
-                <label className="block text-sm font-medium mb-2">Choose Campus:</label>
-                <div className="space-y-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="campus"
-                      checked={formData.campus === 'nyc'}
-                      onChange={() => updateField('campus', 'nyc')}
-                      className="mr-2"
-                    />
-                    New York City
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="campus"
-                      checked={formData.campus === 'pleasantville'}
-                      onChange={() => updateField('campus', 'pleasantville')}
-                      className="mr-2"
-                    />
-                    Pleasantville
-                  </label>
-                </div>
-                <ErrorMsg field="campus" />
-              </div>
-
-              <div data-field="semester">
-                <label className="block text-sm font-medium mb-2">Semester:</label>
-                <div className="space-y-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="semester"
-                      checked={formData.semester === 'fall'}
-                      onChange={() => updateField('semester', 'fall')}
-                      className="mr-2"
-                    />
-                    Fall
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="semester"
-                      checked={formData.semester === 'spring'}
-                      onChange={() => updateField('semester', 'spring')}
-                      className="mr-2"
-                    />
-                    Spring
-                  </label>
-                </div>
-                <ErrorMsg field="semester" />
-              </div>
+            {/* Action Buttons */}
+            <div className="mb-8 flex flex-wrap gap-3">
+              <button
+                onClick={loadExample}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 border border-gray-200"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+                Load Example
+              </button>
+              <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 border border-gray-200 cursor-pointer">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Upload JSON
+                <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
+              </label>
             </div>
 
-            {/* Preferred Courses Table */}
-            <div className="mb-6">
-              <h4 className="font-bold mb-2">
-                Preferred Courses<sup>2</sup> (Provide 5 preferred courses and 5 alternate courses)
-              </h4>
-              <table className="w-full border-collapse border border-gray-300">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="border border-gray-300 p-2 text-left w-24">CRN<sup>3</sup></th>
-                    <th className="border border-gray-300 p-2 text-left">SUBJECT</th>
-                    <th className="border border-gray-300 p-2 text-left w-32">COURSE CODE</th>
-                    <th className="border border-gray-300 p-2 text-left w-20">CREDITS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {formData.preferredCourses.map((course, i) => (
-                    <tr key={i}>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.crn}
-                          onChange={(e) => updateCourse('preferredCourses', i, 'crn', e.target.value)}
-                          placeholder="21211"
-                          className={`w-full p-1 ${errors[`preferredCourses[${i}].crn`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.subject}
-                          onChange={(e) => updateCourse('preferredCourses', i, 'subject', e.target.value)}
-                          placeholder="Quantitative Analysis and Forecasting"
-                          className={`w-full p-1 ${errors[`preferredCourses[${i}].subject`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.courseCode}
-                          onChange={(e) => updateCourse('preferredCourses', i, 'courseCode', e.target.value.toUpperCase())}
-                          placeholder="ECO 240"
-                          className={`w-full p-1 ${errors[`preferredCourses[${i}].courseCode`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.credits}
-                          onChange={(e) => updateCourse('preferredCourses', i, 'credits', e.target.value)}
-                          placeholder="3"
-                          className={`w-full p-1 ${errors[`preferredCourses[${i}].credits`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Alternate Courses Table */}
-            <div className="mb-6">
-              <h4 className="font-bold mb-2">
-                Alternate Courses (form will not be accepted unless alternate course section is fully completed)
-              </h4>
-              <table className="w-full border-collapse border border-gray-300">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="border border-gray-300 p-2 text-left w-24">CRN<sup>3</sup></th>
-                    <th className="border border-gray-300 p-2 text-left">SUBJECT</th>
-                    <th className="border border-gray-300 p-2 text-left w-32">COURSE CODE</th>
-                    <th className="border border-gray-300 p-2 text-left w-20">CREDITS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {formData.alternateCourses.map((course, i) => (
-                    <tr key={i}>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.crn}
-                          onChange={(e) => updateCourse('alternateCourses', i, 'crn', e.target.value)}
-                          placeholder="21149"
-                          className={`w-full p-1 ${errors[`alternateCourses[${i}].crn`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.subject}
-                          onChange={(e) => updateCourse('alternateCourses', i, 'subject', e.target.value)}
-                          placeholder="Artificial Intelligence I"
-                          className={`w-full p-1 ${errors[`alternateCourses[${i}].subject`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.courseCode}
-                          onChange={(e) => updateCourse('alternateCourses', i, 'courseCode', e.target.value.toUpperCase())}
-                          placeholder="CS 385"
-                          className={`w-full p-1 ${errors[`alternateCourses[${i}].courseCode`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                      <td className="border border-gray-300 p-1">
-                        <input
-                          type="text"
-                          value={course.credits}
-                          onChange={(e) => updateCourse('alternateCourses', i, 'credits', e.target.value)}
-                          placeholder="4"
-                          className={`w-full p-1 ${errors[`alternateCourses[${i}].credits`] ? 'bg-red-50' : ''}`}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          {/* Signature Section */}
-          <section className="mb-8">
-            <h3 className="text-lg font-bold border-b-2 border-blue-900 pb-2 mb-4">
-              Home Institution Coordinator Signature
-            </h3>
-            <div className="mb-4" data-field="coordinatorName">
-              <label className="block text-sm font-medium mb-1">Coordinator Name</label>
-              <input
-                type="text"
-                value={formData.coordinatorName}
-                onChange={(e) => updateField('coordinatorName', e.target.value)}
-                className={inputClass('coordinatorName')}
-              />
-              <ErrorMsg field="coordinatorName" />
-            </div>
-
-            <div className="mb-4" data-field="signature">
-              <label className="block text-sm font-medium mb-2">Signature (choose one option)</label>
-
-              <div className="border border-gray-300 rounded p-4 mb-4">
-                <p className="text-sm mb-2">Option 1: Sign below</p>
-                <SignatureCanvas
-                  ref={sigCanvas}
-                  canvasProps={{
-                    className: 'signature-canvas w-full h-32 border border-gray-300',
-                  }}
-                  onEnd={saveSignature}
-                />
-                <button onClick={clearSignature} className="mt-2 px-3 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
-                  Clear Signature
-                </button>
-              </div>
-
-              <div className="border border-gray-300 rounded p-4">
-                <label className="flex items-start">
+            {/* Personal Information */}
+            <section className="mb-10">
+              <h3 className="text-xl font-bold text-gray-800 section-header">Personal Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div data-field="firstName">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    First Name <span className="text-gray-400">(as in passport)</span>
+                  </label>
                   <input
-                    type="checkbox"
-                    checked={formData.typedCertification}
-                    onChange={(e) => {
-                      updateField('typedCertification', e.target.checked);
-                      if (e.target.checked) {
-                        updateField('signatureType', 'typed');
-                        updateField('signatureData', '');
-                        sigCanvas.current?.clear();
-                      } else {
-                        updateField('signatureType', '');
-                      }
-                    }}
-                    className="mr-2 mt-1"
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(e) => updateField('firstName', e.target.value)}
+                    className={inputClass('firstName')}
                   />
-                  <span className="text-sm">
-                    Option 2: I certify that I am the designated home institution coordinator and approve this course
-                    selection form.
-                  </span>
-                </label>
+                  <ErrorMsg field="firstName" />
+                </div>
+                <div data-field="lastName">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Last Name</label>
+                  <input
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(e) => updateField('lastName', e.target.value)}
+                    className={inputClass('lastName')}
+                  />
+                  <ErrorMsg field="lastName" />
+                </div>
+                <div data-field="paceUId">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Pace U ID#</label>
+                  <input
+                    type="text"
+                    value={formData.paceUId}
+                    onChange={(e) => updateField('paceUId', e.target.value.toUpperCase())}
+                    placeholder="U0XXXXXX"
+                    className={inputClass('paceUId')}
+                  />
+                  <ErrorMsg field="paceUId" />
+                </div>
+                <div data-field="homeInstitution">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Home Institution</label>
+                  <input
+                    type="text"
+                    value={formData.homeInstitution}
+                    onChange={(e) => updateField('homeInstitution', e.target.value)}
+                    className={inputClass('homeInstitution')}
+                  />
+                  <ErrorMsg field="homeInstitution" />
+                </div>
+                <div data-field="email">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => updateField('email', e.target.value)}
+                    className={inputClass('email')}
+                  />
+                  <ErrorMsg field="email" />
+                </div>
+                <div data-field="alternateEmail">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Alternate Email</label>
+                  <input
+                    type="email"
+                    value={formData.alternateEmail}
+                    onChange={(e) => updateField('alternateEmail', e.target.value)}
+                    className={inputClass('alternateEmail')}
+                  />
+                  <ErrorMsg field="alternateEmail" />
+                </div>
+                <div data-field="educationLevel">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Current Education Level</label>
+                  <input
+                    type="text"
+                    value={formData.educationLevel}
+                    onChange={(e) => updateField('educationLevel', e.target.value)}
+                    className={inputClass('educationLevel')}
+                  />
+                  <ErrorMsg field="educationLevel" />
+                </div>
+                <div data-field="usCredits">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">U.S. Credits Required</label>
+                  <input
+                    type="number"
+                    min="12"
+                    max="18"
+                    value={formData.usCredits}
+                    onChange={(e) => updateField('usCredits', e.target.value)}
+                    placeholder="12-18"
+                    className={inputClass('usCredits')}
+                  />
+                  <ErrorMsg field="usCredits" />
+                </div>
+                <div className="sm:col-span-2" data-field="specialRequirements">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Special Requirements for Course Selection</label>
+                  <input
+                    type="text"
+                    value={formData.specialRequirements}
+                    onChange={(e) => updateField('specialRequirements', e.target.value)}
+                    className={inputClass('specialRequirements')}
+                  />
+                  <ErrorMsg field="specialRequirements" />
+                </div>
+                <div className="sm:col-span-2" data-field="allowOutsideLevel">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Does Your Home School Allow Course Selection Outside Level of Education?
+                  </label>
+                  <select
+                    value={formData.allowOutsideLevel}
+                    onChange={(e) => updateField('allowOutsideLevel', e.target.value)}
+                    className={inputClass('allowOutsideLevel')}
+                  >
+                    <option value="">Select an option...</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                  <ErrorMsg field="allowOutsideLevel" />
+                </div>
               </div>
-              <ErrorMsg field="signature" />
+            </section>
+
+            {/* Course Selection */}
+            <section className="mb-10">
+              <h3 className="text-xl font-bold text-gray-800 section-header">Course Selection</h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 p-5 bg-gray-50 rounded-xl">
+                <div data-field="level">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Choose Level</label>
+                  <div className="space-y-2.5">
+                    {['undergraduate', 'graduate'].map((lvl) => (
+                      <label key={lvl} className="flex items-center gap-3 cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="level"
+                          checked={formData.level === lvl}
+                          onChange={() => updateField('level', lvl)}
+                        />
+                        <span className="text-gray-700 group-hover:text-gray-900 capitalize">{lvl}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <ErrorMsg field="level" />
+                </div>
+
+                <div data-field="campus">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Choose Campus</label>
+                  <div className="space-y-2.5">
+                    {[{ val: 'nyc', label: 'New York City' }, { val: 'pleasantville', label: 'Pleasantville' }].map(({ val, label }) => (
+                      <label key={val} className="flex items-center gap-3 cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="campus"
+                          checked={formData.campus === val}
+                          onChange={() => updateField('campus', val)}
+                        />
+                        <span className="text-gray-700 group-hover:text-gray-900">{label}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <ErrorMsg field="campus" />
+                </div>
+
+                <div data-field="semester">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Semester</label>
+                  <div className="space-y-2.5">
+                    {['fall', 'spring'].map((sem) => (
+                      <label key={sem} className="flex items-center gap-3 cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="semester"
+                          checked={formData.semester === sem}
+                          onChange={() => updateField('semester', sem)}
+                        />
+                        <span className="text-gray-700 group-hover:text-gray-900 capitalize">{sem}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <ErrorMsg field="semester" />
+                </div>
+              </div>
+
+              {/* Course Tables */}
+              {(['preferredCourses', 'alternateCourses'] as const).map((courseType) => (
+                <div key={courseType} className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className={`w-2 h-2 rounded-full ${courseType === 'preferredCourses' ? 'bg-blue-500' : 'bg-amber-500'}`} />
+                    <h4 className="font-semibold text-gray-800">
+                      {courseType === 'preferredCourses' ? 'Preferred Courses' : 'Alternate Courses'}
+                      <span className="text-xs font-normal text-gray-500 ml-2">
+                        {courseType === 'preferredCourses'
+                          ? '(Provide 5 preferred courses)'
+                          : '(Required - form will not be accepted unless complete)'}
+                      </span>
+                    </h4>
+                  </div>
+                  <div className="overflow-x-auto rounded-xl border border-gray-200">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="bg-gray-50">
+                          <th className="p-3 text-left w-24 border-b border-gray-200">CRN</th>
+                          <th className="p-3 text-left border-b border-gray-200">Subject</th>
+                          <th className="p-3 text-left w-32 border-b border-gray-200">Course Code</th>
+                          <th className="p-3 text-left w-20 border-b border-gray-200">Credits</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {formData[courseType].map((course, i) => (
+                          <tr key={i} className="border-b border-gray-100 last:border-b-0">
+                            <td className="p-0">
+                              <input
+                                type="text"
+                                value={course.crn}
+                                onChange={(e) => updateCourse(courseType, i, 'crn', e.target.value)}
+                                placeholder="21211"
+                                className={errors[`${courseType}[${i}].crn`] ? 'bg-red-50' : ''}
+                              />
+                            </td>
+                            <td className="p-0">
+                              <input
+                                type="text"
+                                value={course.subject}
+                                onChange={(e) => updateCourse(courseType, i, 'subject', e.target.value)}
+                                placeholder="Course Title"
+                                className={errors[`${courseType}[${i}].subject`] ? 'bg-red-50' : ''}
+                              />
+                            </td>
+                            <td className="p-0">
+                              <input
+                                type="text"
+                                value={course.courseCode}
+                                onChange={(e) => updateCourse(courseType, i, 'courseCode', e.target.value.toUpperCase())}
+                                placeholder="ABC 123"
+                                className={errors[`${courseType}[${i}].courseCode`] ? 'bg-red-50' : ''}
+                              />
+                            </td>
+                            <td className="p-0">
+                              <input
+                                type="text"
+                                value={course.credits}
+                                onChange={(e) => updateCourse(courseType, i, 'credits', e.target.value)}
+                                placeholder="3"
+                                className={errors[`${courseType}[${i}].credits`] ? 'bg-red-50' : ''}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
+            </section>
+
+            {/* Signature Section */}
+            <section className="mb-10">
+              <h3 className="text-xl font-bold text-gray-800 section-header">
+                Home Institution Coordinator Signature
+              </h3>
+              <div className="mb-5" data-field="coordinatorName">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Coordinator Name</label>
+                <input
+                  type="text"
+                  value={formData.coordinatorName}
+                  onChange={(e) => updateField('coordinatorName', e.target.value)}
+                  className={inputClass('coordinatorName')}
+                />
+                <ErrorMsg field="coordinatorName" />
+              </div>
+
+              <div data-field="signature">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Signature <span className="text-gray-400">(choose one option)</span>
+                </label>
+
+                <div className="grid gap-4">
+                  <div className="p-5 bg-gray-50 rounded-xl border-2 border-gray-200">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-gray-700">Option 1: Sign below</span>
+                      <button
+                        onClick={clearSignature}
+                        className="px-3 py-1.5 text-sm bg-white border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                    <SignatureCanvas
+                      ref={sigCanvas}
+                      canvasProps={{
+                        className: 'signature-canvas w-full h-32',
+                      }}
+                      onEnd={saveSignature}
+                    />
+                    <p className="text-xs text-gray-400 mt-2">Draw your signature above using mouse or touch</p>
+                  </div>
+
+                  <div className="p-5 bg-gray-50 rounded-xl border-2 border-gray-200">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.typedCertification}
+                        onChange={(e) => {
+                          updateField('typedCertification', e.target.checked);
+                          if (e.target.checked) {
+                            updateField('signatureType', 'typed');
+                            updateField('signatureData', '');
+                            sigCanvas.current?.clear();
+                          } else {
+                            updateField('signatureType', '');
+                          }
+                        }}
+                        className="mt-0.5"
+                      />
+                      <div>
+                        <span className="text-sm font-medium text-gray-700">Option 2: Digital Certification</span>
+                        <p className="text-sm text-gray-500 mt-1">
+                          I certify that I am the designated home institution coordinator and approve this course
+                          selection form.
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <ErrorMsg field="signature" />
+              </div>
+            </section>
+
+            {/* Footnotes */}
+            <section className="text-xs text-gray-500 mb-8 p-4 bg-gray-50 rounded-xl">
+              <p className="mb-1"><sup>1</sup> You must meet the equivalent prerequisites at your home institution.</p>
+              <p className="mb-1"><sup>2</sup> Enrollment in the listed courses is not guaranteed.</p>
+              <p><sup>3</sup> CRN (Course Reference Number)</p>
+            </section>
+
+            {/* Submit Button */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-200">
+              <button
+                onClick={handleSubmit}
+                disabled={submitted && !isValid}
+                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg ${
+                  submitted && !isValid
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none'
+                    : 'bg-[#002855] text-white hover:bg-[#001a3d] shadow-blue-900/25'
+                }`}
+              >
+                {submitted && !isValid ? (
+                  <>
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    Fix Errors to Submit
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Validate & Export PDF
+                  </>
+                )}
+              </button>
+              <p className="text-sm text-gray-400">Last Updated: 05/07/2024</p>
             </div>
-          </section>
-
-          {/* Footnotes */}
-          <section className="text-xs text-gray-600 mb-6 border-t pt-4">
-            <p>
-              <sup>1</sup>You must meet the equivalent prerequisites at your home institution.
-            </p>
-            <p>
-              <sup>2</sup>Enrollment in the listed courses is not guaranteed.
-            </p>
-            <p>
-              <sup>3</sup>CRN (Course Reference Number)
-            </p>
-          </section>
-
-          {/* Submit Button */}
-          <div className="flex justify-between items-center">
-            <button
-              onClick={handleSubmit}
-              disabled={submitted && !isValid}
-              className={`px-6 py-3 rounded font-bold ${
-                submitted && !isValid
-                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-                  : 'bg-blue-900 text-white hover:bg-blue-800'
-              }`}
-            >
-              {submitted && !isValid ? 'Fix Errors to Submit' : 'Validate and Export PDF'}
-            </button>
-            <p className="text-sm text-gray-500">Last Updated: 05/07/2024</p>
           </div>
         </div>
       </div>
