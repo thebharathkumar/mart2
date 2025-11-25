@@ -132,23 +132,23 @@ function App() {
       <div className="max-w-5xl mx-auto">
         {/* Header Card */}
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
-          <div className="bg-gradient-to-br from-[#002D73] via-[#003585] to-[#002D73] p-8">
+          <div className="bg-white p-8 border-b border-gray-100">
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-4">
                 <img
                   src="/paceias_page-0001.jpg"
                   alt="PACE IAS Logo"
-                  className="h-20 w-auto object-contain drop-shadow-2xl"
+                  className="h-20 w-auto object-contain"
                 />
               </div>
-              <div className="text-right text-sm text-white/90 hidden sm:block">
-                <p className="font-semibold text-white mb-1">International Students and Scholars</p>
-                <p className="text-white/80">161 William Street, 16th Floor</p>
-                <p className="text-white/80">New York, NY 10038</p>
+              <div className="text-right text-sm text-gray-600 hidden sm:block">
+                <p className="font-semibold text-[#002D73] mb-1">International Students and Scholars</p>
+                <p className="text-gray-600">161 William Street, 16th Floor</p>
+                <p className="text-gray-600">New York, NY 10038</p>
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-[#FFB81A] via-[#FFC940] to-[#FFB81A] px-8 py-5 border-t-2 border-white/20">
+          <div className="bg-gradient-to-r from-[#FFB81A] via-[#FFC940] to-[#FFB81A] px-8 py-5">
             <h2 className="text-xl font-bold text-center tracking-wide text-[#002D73]">
               Exchange Student Course Selection Sheet
             </h2>
