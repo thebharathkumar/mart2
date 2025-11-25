@@ -119,10 +119,11 @@ export const generatePDF = (data: FormData): void => {
   y += 4;
   pdf.text('• Spring courses are posted online in mid to late November.', leftMargin + 2, y);
   y += 5;
-  const introText3 = 'Using the course offerings posted for the same semester in the prior year on the "Pace Schedule Explorer", list your course preferences';
-  const introText4 = 'and alternative courses below for the semester in which you plan to attend. When using Schedule Explorer to search courses, you must';
-  const introText5 = 'be sure to select the appropriate "Campus" (i.e., Pleasantville or New York City) and the appropriate "Level" (i.e., undergraduate or';
-  const introText6 = 'graduate).';
+  const introText3 = 'Using the course offerings posted for the same semester in the prior year on the "Schedule Explorer" (appsrv.pace.edu/ScheduleExplorer/),';
+  const introText4 = 'list your course preferences and alternative courses below for the semester in which you plan to attend. When using Schedule Explorer to';
+  const introText5 = 'search courses, you must be sure to select the appropriate "Campus" (i.e., Pleasantville or New York City) and the appropriate "Level"';
+  const introText6 = '(i.e., undergraduate or graduate). Also ensure to review most common mistakes in filling this form on our website at';
+  const introText7 = 'pace.edu/international-academic-support/semester-pace/course-procedures.';
   pdf.text(introText3, leftMargin, y);
   y += 4;
   pdf.text(introText4, leftMargin, y);
@@ -130,6 +131,8 @@ export const generatePDF = (data: FormData): void => {
   pdf.text(introText5, leftMargin, y);
   y += 4;
   pdf.text(introText6, leftMargin, y);
+  y += 4;
+  pdf.text(introText7, leftMargin, y);
   y += 8;
 
   // Table drawing function
@@ -228,5 +231,9 @@ export const generatePDF = (data: FormData): void => {
   y += 4;
   pdf.text('3CRN (Course Reference Number)', leftMargin, y);
 
-  pdf.save('Exchange_Student_Course_Selection_Sheet.pdf');
+  // Generate filename using last name (e.g., CALLEJO Course Selection Sheet.pdf)
+  const fileName = data.lastName
+    ? `${data.lastName.toUpperCase()}_Course_Selection_Sheet.pdf`
+    : 'Exchange_Student_Course_Selection_Sheet.pdf';
+  pdf.save(fileName);
 };
