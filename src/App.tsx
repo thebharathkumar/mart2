@@ -436,14 +436,14 @@ function App() {
                       , list your course preferences and alternative courses below for the semester in which you plan to attend.
                       When using Schedule Explorer to search courses, you must be sure to select the appropriate "Campus"
                       (i.e., Pleasantville or New York City) and the appropriate "Level" (i.e., undergraduate or graduate).
-                      Also ensure to review most common mistakes in filling this form on our website at{' '}
+                      Also ensure to review most common mistakes in filling this form on{' '}
                       <a
                         href="https://www.pace.edu/international-academic-support/semester-pace/course-procedures"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#002D73] underline hover:text-[#FFB81A] transition-colors"
+                        className="text-[#002D73] underline hover:text-[#FFB81A] font-semibold transition-colors"
                       >
-                        pace.edu/international-academic-support/semester-pace/course-procedures
+                        our website
                       </a>.
                     </p>
                   </div>
