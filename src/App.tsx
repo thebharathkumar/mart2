@@ -135,13 +135,11 @@ function App() {
           <div className="p-6">
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center">
-                  <span className="text-3xl font-bold tracking-tight">P</span>
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold tracking-wide">PACE</h1>
-                  <p className="text-sm text-white/70 tracking-widest uppercase">IAS</p>
-                </div>
+                <img
+                  src="/paceias_page-0001.jpg"
+                  alt="PACE IAS Logo"
+                  className="h-16 w-auto object-contain"
+                />
               </div>
               <div className="text-right text-sm text-white/80 hidden sm:block">
                 <p className="font-medium text-white">International Students and Scholars</p>
