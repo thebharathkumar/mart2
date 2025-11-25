@@ -140,7 +140,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold tracking-wide">PACE</h1>
-                  <p className="text-sm text-white/70 tracking-widest uppercase">University</p>
+                  <p className="text-sm text-white/70 tracking-widest uppercase">IAS</p>
                 </div>
               </div>
               <div className="text-right text-sm text-white/80 hidden sm:block">
@@ -238,7 +238,17 @@ function App() {
                   <ErrorMsg field="lastName" />
                 </div>
                 <div data-field="paceUId">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Pace U ID#</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Pace U ID#
+                    <a
+                      href="https://helpdesk.pace.edu/TDClient/213/Portal/KB/ArticleDet?ID=3933"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 text-xs text-blue-600 underline hover:text-blue-800 font-normal"
+                    >
+                      (how to pull UID)
+                    </a>
+                  </label>
                   <input
                     type="text"
                     value={formData.paceUId}
@@ -386,6 +396,46 @@ function App() {
                     ))}
                   </div>
                   <ErrorMsg field="semester" />
+                </div>
+              </div>
+
+              {/* Course Registration Information */}
+              <div className="mb-8 p-6 bg-green-50 border-2 border-green-200 rounded-xl">
+                <div className="text-sm text-gray-700 space-y-3">
+                  <p>
+                    Your Pace academic advisor will receive your course selection and register you in courses<sup>1</sup>.
+                    At a later date, you will be instructed on how to view your course registration and how to contact
+                    your academic advisor should you have any questions about your schedule.
+                  </p>
+
+                  <div className="space-y-1">
+                    <p>• Fall courses are posted online in mid to late April.</p>
+                    <p>• Spring courses are posted online in mid to late November.</p>
+                  </div>
+
+                  <p>
+                    Using the course offerings posted for the same semester in the prior year on the{' '}
+                    <a
+                      href="https://appsrv.pace.edu/ScheduleExplorer/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline hover:text-blue-800 font-medium"
+                    >
+                      Schedule Explorer
+                    </a>
+                    , list your course preferences and alternative courses below for the semester in which you plan to attend.
+                    When using Schedule Explorer to search courses, you must be sure to select the appropriate "Campus"
+                    (i.e., Pleasantville or New York City) and the appropriate "Level" (i.e., undergraduate or graduate).
+                    Also ensure to review most common mistakes in filling this form on our website at{' '}
+                    <a
+                      href="https://www.pace.edu/international-academic-support/semester-pace/course-procedures"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline hover:text-blue-800"
+                    >
+                      pace.edu/international-academic-support/semester-pace/course-procedures
+                    </a>.
+                  </p>
                 </div>
               </div>
 
@@ -541,33 +591,44 @@ function App() {
               <p><sup>3</sup> CRN (Course Reference Number)</p>
             </section>
 
-            {/* Submit Button */}
+            {/* Submit Buttons */}
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-200">
-              <button
-                onClick={handleSubmit}
-                disabled={submitted && !isValid}
-                className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg ${
-                  submitted && !isValid
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none'
-                    : 'bg-[#002855] text-white hover:bg-[#001a3d] shadow-blue-900/25'
-                }`}
-              >
-                {submitted && !isValid ? (
-                  <>
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    Fix Errors to Submit
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Validate & Export PDF
-                  </>
-                )}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <button
+                  onClick={handleSubmit}
+                  disabled={submitted && !isValid}
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg ${
+                    submitted && !isValid
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none'
+                      : 'bg-[#002855] text-white hover:bg-[#001a3d] shadow-blue-900/25'
+                  }`}
+                >
+                  {submitted && !isValid ? (
+                    <>
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      Fix Errors to Submit
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Validate & Export PDF
+                    </>
+                  )}
+                </button>
+                <a
+                  href={`mailto:IAS@pace.edu?subject=Course Selection Form - ${formData.firstName} ${formData.lastName}&body=Dear IAS Team,%0D%0A%0D%0APlease find attached my course selection form.%0D%0A%0D%0AName: ${formData.firstName} ${formData.lastName}%0D%0APace U ID: ${formData.paceUId}%0D%0A%0D%0AThank you.`}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg bg-[#b5985a] text-white hover:bg-[#a08750] shadow-amber-900/25"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Submit to IAS
+                </a>
+              </div>
               <p className="text-sm text-gray-400">Last Updated: 05/07/2024</p>
             </div>
           </div>
