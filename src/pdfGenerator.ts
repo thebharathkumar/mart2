@@ -18,7 +18,7 @@ export const generatePDF = (data: FormData): void => {
   // Header - Right side (address)
   pdf.setFontSize(9);
   pdf.setFont('helvetica', 'normal');
-  pdf.text('International Students and Scholars', rightMargin, y, { align: 'right' });
+  pdf.text('International Academic Support', rightMargin, y, { align: 'right' });
   pdf.text('161 William Street, 16th Floor', rightMargin, y + 4, { align: 'right' });
   pdf.text('New York, NY 10038', rightMargin, y + 8, { align: 'right' });
 

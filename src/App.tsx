@@ -142,7 +142,7 @@ function App() {
                 />
               </div>
               <div className="text-right text-sm text-gray-600 hidden sm:block">
-                <p className="font-semibold text-[#002D73] mb-1">International Students and Scholars</p>
+                <p className="font-semibold text-[#002D73] mb-1">International Academic Support</p>
                 <p className="text-gray-600">161 William Street, 16th Floor</p>
                 <p className="text-gray-600">New York, NY 10038</p>
               </div>
