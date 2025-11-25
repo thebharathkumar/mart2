@@ -59,6 +59,31 @@ function App() {
     }
   };
 
+  const handleSubmitToIAS = () => {
+    setSubmitted(true);
+    const validationErrors = validateForm(formData);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      // Generate the PDF first
+      generatePDF(formData);
+
+      // Open email client after a short delay to ensure PDF generation started
+      setTimeout(() => {
+        const pdfFileName = formData.lastName
+          ? `${formData.lastName.toUpperCase()}_Course_Selection_Sheet.pdf`
+          : 'Exchange_Student_Course_Selection_Sheet.pdf';
+
+        const mailtoLink = `mailto:IAS@pace.edu?subject=Course Selection Form - ${formData.firstName} ${formData.lastName}&body=Dear IAS Team,%0D%0A%0D%0APlease find attached my course selection form.%0D%0A%0D%0AName: ${formData.firstName} ${formData.lastName}%0D%0APace U ID: ${formData.paceUId}%0D%0A%0D%0AIMPORTANT: Please attach the PDF file that was just downloaded (%22${pdfFileName}%22) to this email before sending.%0D%0A%0D%0AThank you.`;
+        window.location.href = mailtoLink;
+      }, 500);
+    } else {
+      const firstErrorKey = Object.keys(validationErrors)[0];
+      const element = document.querySelector(`[data-field="${firstErrorKey}"]`);
+      element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   const loadExample = () => {
     setFormData(exampleFormData);
     setErrors({});
@@ -635,15 +660,15 @@ function App() {
                     </>
                   )}
                 </button>
-                <a
-                  href={`mailto:IAS@pace.edu?subject=Course Selection Form - ${formData.firstName} ${formData.lastName}&body=Dear IAS Team,%0D%0A%0D%0APlease find attached my course selection form.%0D%0A%0D%0AName: ${formData.firstName} ${formData.lastName}%0D%0APace U ID: ${formData.paceUId}%0D%0A%0D%0AThank you.`}
+                <button
+                  onClick={handleSubmitToIAS}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-lg shadow-xl bg-gradient-to-r from-[#FFB81A] to-[#FFA500] text-[#002D73] hover:from-[#FFA500] hover:to-[#FFB81A] hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   Submit to IAS
-                </a>
+                </button>
               </div>
               <p className="text-sm text-gray-500 font-medium">Last Updated: 05/07/2024</p>
             </div>
