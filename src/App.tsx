@@ -128,36 +128,36 @@ function App() {
     ) : null;
 
   return (
-    <div className="min-h-screen py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen py-8 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="max-w-5xl mx-auto">
         {/* Header Card */}
-        <div className="bg-[#002855] text-white rounded-t-xl shadow-lg overflow-hidden">
-          <div className="p-6">
+        <div className="bg-gradient-to-r from-[#002D73] to-[#003894] text-white rounded-2xl shadow-2xl overflow-hidden">
+          <div className="p-8">
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-4">
                 <img
                   src="/paceias_page-0001.jpg"
                   alt="PACE IAS Logo"
-                  className="h-16 w-auto object-contain"
+                  className="h-20 w-auto object-contain drop-shadow-lg"
                 />
               </div>
-              <div className="text-right text-sm text-white/80 hidden sm:block">
-                <p className="font-medium text-white">International Students and Scholars</p>
-                <p>161 William Street, 16th Floor</p>
-                <p>New York, NY 10038</p>
+              <div className="text-right text-sm text-white/90 hidden sm:block">
+                <p className="font-semibold text-white mb-1">International Students and Scholars</p>
+                <p className="text-white/80">161 William Street, 16th Floor</p>
+                <p className="text-white/80">New York, NY 10038</p>
               </div>
             </div>
           </div>
-          <div className="bg-[#b5985a] px-6 py-3">
-            <h2 className="text-lg font-semibold text-center tracking-wide">
+          <div className="bg-[#FFB81A] px-8 py-4">
+            <h2 className="text-xl font-bold text-center tracking-wide text-[#002D73]">
               Exchange Student Course Selection Sheet
             </h2>
           </div>
         </div>
 
         {/* Main Form Card */}
-        <div className="bg-white shadow-lg rounded-b-xl">
-          <div className="p-6 sm:p-8">
+        <div className="bg-white shadow-2xl rounded-b-2xl border border-gray-100">
+          <div className="p-8 sm:p-10">
             {/* Error Summary */}
             {submitted && errorList.length > 0 && (
               <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-xl animate-fade-in">
@@ -184,14 +184,14 @@ function App() {
             <div className="mb-8 flex flex-wrap gap-3">
               <button
                 onClick={loadExample}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 border border-gray-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 rounded-xl hover:from-gray-100 hover:to-gray-200 border border-gray-200 shadow-sm hover:shadow transition-all duration-200"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                 </svg>
                 Load Example
               </button>
-              <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 border border-gray-200 cursor-pointer">
+              <label className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 rounded-xl hover:from-gray-100 hover:to-gray-200 border border-gray-200 shadow-sm hover:shadow transition-all duration-200 cursor-pointer">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                 </svg>
@@ -200,7 +200,7 @@ function App() {
               </label>
               <button
                 onClick={exportJSON}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 border border-gray-200"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 rounded-xl hover:from-gray-100 hover:to-gray-200 border border-gray-200 shadow-sm hover:shadow transition-all duration-200"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -211,7 +211,7 @@ function App() {
 
             {/* Personal Information */}
             <section className="mb-10">
-              <h3 className="text-xl font-bold text-gray-800 section-header">Personal Information</h3>
+              <h3 className="text-2xl font-bold text-[#002D73] section-header">Personal Information</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div data-field="firstName">
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -339,9 +339,9 @@ function App() {
 
             {/* Course Selection */}
             <section className="mb-10">
-              <h3 className="text-xl font-bold text-gray-800 section-header">Course Selection</h3>
+              <h3 className="text-2xl font-bold text-[#002D73] section-header">Course Selection</h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 p-5 bg-gray-50 rounded-xl">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 p-6 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl border border-gray-200 shadow-sm">
                 <div data-field="level">
                   <label className="block text-sm font-semibold text-gray-700 mb-3">Choose Level</label>
                   <div className="space-y-2.5">
@@ -398,42 +398,55 @@ function App() {
               </div>
 
               {/* Course Registration Information */}
-              <div className="mb-8 p-6 bg-green-50 border-2 border-green-200 rounded-xl">
-                <div className="text-sm text-gray-700 space-y-3">
-                  <p>
-                    Your Pace academic advisor will receive your course selection and register you in courses<sup>1</sup>.
-                    At a later date, you will be instructed on how to view your course registration and how to contact
-                    your academic advisor should you have any questions about your schedule.
-                  </p>
-
-                  <div className="space-y-1">
-                    <p>• Fall courses are posted online in mid to late April.</p>
-                    <p>• Spring courses are posted online in mid to late November.</p>
+              <div className="mb-8 p-6 bg-gradient-to-br from-blue-50 to-yellow-50 border-2 border-[#FFB81A]/30 rounded-2xl shadow-sm">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="mt-0.5 w-6 h-6 bg-[#FFB81A] rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-[#002D73]" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
                   </div>
+                  <div className="text-sm text-gray-700 space-y-3 flex-1">
+                    <p className="font-medium text-[#002D73]">
+                      Your Pace academic advisor will receive your course selection and register you in courses<sup>1</sup>.
+                      At a later date, you will be instructed on how to view your course registration and how to contact
+                      your academic advisor should you have any questions about your schedule.
+                    </p>
 
-                  <p>
-                    Using the course offerings posted for the same semester in the prior year on the{' '}
-                    <a
-                      href="https://appsrv.pace.edu/ScheduleExplorer/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline hover:text-blue-800 font-medium"
-                    >
-                      Schedule Explorer
-                    </a>
-                    , list your course preferences and alternative courses below for the semester in which you plan to attend.
-                    When using Schedule Explorer to search courses, you must be sure to select the appropriate "Campus"
-                    (i.e., Pleasantville or New York City) and the appropriate "Level" (i.e., undergraduate or graduate).
-                    Also ensure to review most common mistakes in filling this form on our website at{' '}
-                    <a
-                      href="https://www.pace.edu/international-academic-support/semester-pace/course-procedures"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline hover:text-blue-800"
-                    >
-                      pace.edu/international-academic-support/semester-pace/course-procedures
-                    </a>.
-                  </p>
+                    <div className="space-y-1.5 pl-4 border-l-3 border-[#FFB81A]">
+                      <p className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-[#002D73] rounded-full"></span>
+                        Fall courses are posted online in mid to late April.
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-[#002D73] rounded-full"></span>
+                        Spring courses are posted online in mid to late November.
+                      </p>
+                    </div>
+
+                    <p>
+                      Using the course offerings posted for the same semester in the prior year on the{' '}
+                      <a
+                        href="https://appsrv.pace.edu/ScheduleExplorer/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#002D73] underline hover:text-[#FFB81A] font-semibold transition-colors"
+                      >
+                        Schedule Explorer
+                      </a>
+                      , list your course preferences and alternative courses below for the semester in which you plan to attend.
+                      When using Schedule Explorer to search courses, you must be sure to select the appropriate "Campus"
+                      (i.e., Pleasantville or New York City) and the appropriate "Level" (i.e., undergraduate or graduate).
+                      Also ensure to review most common mistakes in filling this form on our website at{' '}
+                      <a
+                        href="https://www.pace.edu/international-academic-support/semester-pace/course-procedures"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#002D73] underline hover:text-[#FFB81A] transition-colors"
+                      >
+                        pace.edu/international-academic-support/semester-pace/course-procedures
+                      </a>.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -511,7 +524,7 @@ function App() {
 
             {/* Signature Section */}
             <section className="mb-10">
-              <h3 className="text-xl font-bold text-gray-800 section-header">
+              <h3 className="text-2xl font-bold text-[#002D73] section-header">
                 Home Institution Coordinator Signature
               </h3>
               <div className="mb-5" data-field="coordinatorName">
@@ -531,12 +544,12 @@ function App() {
                 </label>
 
                 <div className="grid gap-4">
-                  <div className="p-5 bg-gray-50 rounded-xl border-2 border-gray-200">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-medium text-gray-700">Option 1: Sign below</span>
+                  <div className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-sm font-semibold text-[#002D73]">Option 1: Sign below</span>
                       <button
                         onClick={clearSignature}
-                        className="px-3 py-1.5 text-sm bg-white border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50"
+                        className="px-4 py-2 text-sm bg-white border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 hover:border-[#002D73] transition-colors"
                       >
                         Clear
                       </button>
@@ -548,10 +561,15 @@ function App() {
                       }}
                       onEnd={saveSignature}
                     />
-                    <p className="text-xs text-gray-400 mt-2">Draw your signature above using mouse or touch</p>
+                    <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">
+                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                      </svg>
+                      Draw your signature above using mouse or touch
+                    </p>
                   </div>
 
-                  <div className="p-5 bg-gray-50 rounded-xl border-2 border-gray-200">
+                  <div className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="checkbox"
@@ -569,8 +587,8 @@ function App() {
                         className="mt-0.5"
                       />
                       <div>
-                        <span className="text-sm font-medium text-gray-700">Option 2: Digital Certification</span>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <span className="text-sm font-semibold text-[#002D73]">Option 2: Digital Certification</span>
+                        <p className="text-sm text-gray-600 mt-1.5">
                           I certify that I am the designated home institution coordinator and approve this course
                           selection form.
                         </p>
@@ -583,22 +601,22 @@ function App() {
             </section>
 
             {/* Footnotes */}
-            <section className="text-xs text-gray-500 mb-8 p-4 bg-gray-50 rounded-xl">
-              <p className="mb-1"><sup>1</sup> You must meet the equivalent prerequisites at your home institution.</p>
-              <p className="mb-1"><sup>2</sup> Enrollment in the listed courses is not guaranteed.</p>
-              <p><sup>3</sup> CRN (Course Reference Number)</p>
+            <section className="text-xs text-gray-600 mb-8 p-5 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border border-gray-200">
+              <p className="mb-2"><sup className="text-[#002D73] font-bold">1</sup> You must meet the equivalent prerequisites at your home institution.</p>
+              <p className="mb-2"><sup className="text-[#002D73] font-bold">2</sup> Enrollment in the listed courses is not guaranteed.</p>
+              <p><sup className="text-[#002D73] font-bold">3</sup> CRN (Course Reference Number)</p>
             </section>
 
             {/* Submit Buttons */}
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t-2 border-gray-200">
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <button
                   onClick={handleSubmit}
                   disabled={submitted && !isValid}
-                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg ${
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-lg shadow-xl transition-all duration-300 ${
                     submitted && !isValid
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none'
-                      : 'bg-[#002855] text-white hover:bg-[#001a3d] shadow-blue-900/25'
+                      : 'bg-gradient-to-r from-[#002D73] to-[#003894] text-white hover:from-[#003894] hover:to-[#002D73] hover:shadow-2xl hover:scale-105'
                   }`}
                 >
                   {submitted && !isValid ? (
@@ -619,7 +637,7 @@ function App() {
                 </button>
                 <a
                   href={`mailto:IAS@pace.edu?subject=Course Selection Form - ${formData.firstName} ${formData.lastName}&body=Dear IAS Team,%0D%0A%0D%0APlease find attached my course selection form.%0D%0A%0D%0AName: ${formData.firstName} ${formData.lastName}%0D%0APace U ID: ${formData.paceUId}%0D%0A%0D%0AThank you.`}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-lg shadow-lg bg-[#b5985a] text-white hover:bg-[#a08750] shadow-amber-900/25"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-2xl font-bold text-lg shadow-xl bg-gradient-to-r from-[#FFB81A] to-[#FFA500] text-[#002D73] hover:from-[#FFA500] hover:to-[#FFB81A] hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -627,7 +645,7 @@ function App() {
                   Submit to IAS
                 </a>
               </div>
-              <p className="text-sm text-gray-400">Last Updated: 05/07/2024</p>
+              <p className="text-sm text-gray-500 font-medium">Last Updated: 05/07/2024</p>
             </div>
           </div>
         </div>
