@@ -74,7 +74,7 @@ function App() {
           ? `${formData.lastName.toUpperCase()}_Course_Selection_Sheet.pdf`
           : 'Exchange_Student_Course_Selection_Sheet.pdf';
 
-        const mailtoLink = `mailto:IAS@pace.edu?subject=Course Selection Form - ${formData.firstName} ${formData.lastName}&body=Dear IAS Team,%0D%0A%0D%0APlease find attached my course selection form.%0D%0A%0D%0AName: ${formData.firstName} ${formData.lastName}%0D%0APace U ID: ${formData.paceUId}%0D%0A%0D%0AIMPORTANT: Please attach the PDF file that was just downloaded (%22${pdfFileName}%22) to this email before sending.%0D%0A%0D%0AThank you.`;
+        const mailtoLink = `mailto:IAS@pace.edu?subject=Course Selection Form - ${formData.firstName} ${formData.lastName}&body=IMPORTANT: Please attach the PDF file that was just downloaded (%22${pdfFileName}%22) to this email before sending.%0D%0A%0D%0ADear IAS Team,%0D%0A%0D%0APlease find attached my course selection form.%0D%0A%0D%0AName: ${formData.firstName} ${formData.lastName}%0D%0APace U ID: ${formData.paceUId}%0D%0A%0D%0AThank you.`;
         window.location.href = mailtoLink;
       }, 500);
     } else {
