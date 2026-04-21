@@ -93,8 +93,16 @@ export const generatePDF = async (data: FormData): Promise<void> => {
   pdf.text(data.usCredits || '-', leftMargin + 95, y);
   y += 7;
 
-  addField('Special Requirements', data.specialRequirements || 'None', leftMargin, y, 40);
-  y += 7;
+  pdf.setFont('helvetica', 'normal');
+  pdf.text('Special Requirements:', leftMargin, y);
+  y += 5;
+  pdf.setFont('helvetica', 'bold');
+  const reqLines = pdf.splitTextToSize(
+    data.specialRequirements || 'None',
+    rightMargin - leftMargin
+  );
+  pdf.text(reqLines, leftMargin, y);
+  y += reqLines.length * 5 + 2;
 
   pdf.setFont('helvetica', 'normal');
   pdf.text('Does Your Home School Allow Course Selection Outside Level of Education?', leftMargin, y);

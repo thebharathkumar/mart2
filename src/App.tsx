@@ -278,11 +278,11 @@ function App() {
                 </div>
                 <div className="sm:col-span-2" data-field="specialRequirements">
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">Special Requirements for Course Selection</label>
-                  <input
-                    type="text"
+                  <textarea
                     value={formData.specialRequirements}
                     onChange={(e) => updateField('specialRequirements', e.target.value)}
-                    className={inputClass('specialRequirements')}
+                    rows={3}
+                    className={`${inputClass('specialRequirements')} resize-y`}
                   />
                   <ErrorMsg field="specialRequirements" />
                 </div>
